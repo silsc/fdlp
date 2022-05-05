@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cas pràctic 14
+  </title>
+</head>
+<body>
+  <!-- 
+    Realiza un script que calculi el valor de la lletra d’un número de DNI.
+    El número ha d’estar comprès entre 0 i 99999999
+    Calcular el remanent (“resto”) de la divisió sencera entre el número i el número 23.
+    Segons el resultat, de 0 a 22, li correspondrà una lletra: T, R, W, A, G, M, Y, F, P, D, X, B, N, J, Z, S, Q, V, H, L, C, K, E
+    Si no s’entra un número vàlid es mostrarà amb un alert i es tornarà a preguntar.
+    Es repetirà el procés fins que l’usuari premi «cancelar» a la pregunta (“Entrar un altre DNI?”)
+
+  -->
+    <h1 id="display-dni"></h1>
+
+  <script>
+    const displayDni = document.getElementById('display-dni');
+
+    getInput();
+
+    function getInput() {
+      const dniNumber = prompt("Insert DNI");
+      validateNumber(dniNumber);
+    }
+
+    function another() {
+      const dniNumber = prompt("Want to insert another DNI?");
+      getInput();
+    }
+
+    function validateNumber(dniNumber) {
+      const num = Number(dniNumber);
+      console.log(num);
+      if (Number.isInteger(num) && num >= 0 && num < 99999999) {
+        calculateLetter(dniNumber);
+        another();
+      } else if ( dniNumber === null ){
+        return
+      } else {
+        displayError();
+      }
+    }
+
+    function calculateLetter(dniNumber) {
+      const letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+      let modulo = dniNumber % 23;
+      let letra = letras[modulo];
+      displayDni.innerHTML = 'Tu DNI es ' + dniNumber + letra;
+    }
+    
+
+    function displayError() {
+      alert('Incorrect Number');
+      getInput();
+    }
+    
+
+  </script>
+</body>
+</html>
